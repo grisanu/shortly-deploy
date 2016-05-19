@@ -140,6 +140,6 @@ module.exports = function(grunt) {
     // 'uglify',
     // 'cssmin',
     // 'eslint'
-    'watch'
+    // 'watch'
   ]);
 };
