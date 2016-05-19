@@ -91,7 +91,7 @@ module.exports = function(grunt) {
       //             'git push live master'].join('&&')
       // }
       pushServer: {
-        command: ['git push live master']
+        command: 'git push live master'
       }
     },
   });
