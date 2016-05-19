@@ -136,10 +136,10 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', [
-    // 'concat',
-    // 'uglify',
-    // 'cssmin',
-    // 'eslint'
-    // 'watch'
+    'concat',
+    'uglify',
+    'cssmin',
+    'eslint',
+    'watch'
   ]);
 };
