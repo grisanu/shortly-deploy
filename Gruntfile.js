@@ -3,6 +3,29 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        separator: ';'
+      },
+      js: {   
+        src: ['./public/client/app.js',
+              './public/client/link.js',
+              './public/client/links.js',
+              './public/client/linkView.js',
+              './public/client/linksView.js',
+              './public/client/createLinkView.js',
+              './public/client/router.js'],
+        dest: './public/dist/concat.js'
+      },
+      css: {
+        src: ['./public/*.css'],
+        dest: './public/dist/concat.css'
+      },
+      lib: {
+        src: ['./public/lib/**/*.js', 
+              '!./public/lib/backbone.js', './public/lib/backbone.js', 
+              '!./public/lib/handlebars.js', './public/lib/handlebars.js'],
+        dest: './public/dist/lib.concat.js'
+      }
     },
 
     mochaTest: {
@@ -21,15 +44,27 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        // dest: './public/dist/concat.min.js'
+        files: {
+          './public/dist/concat.min.js': ['./public/dist/concat.js']
+        }
+      }
     },
 
     eslint: {
       target: [
         // Add list of files to lint here
+        './public/client/**/*.js',
+        './public/lib/**/*.js'
       ]
     },
 
     cssmin: {
+      css: {
+        src: './public/dist/concat.css',
+        dest: './public/dist/concat.min.css'
+      }
     },
 
     watch: {
@@ -51,6 +86,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push live master'
       }
     },
   });
@@ -68,6 +104,7 @@ module.exports = function(grunt) {
     grunt.task.run([ 'nodemon', 'watch' ]);
   });
 
+  grunt.fail.warn("Error!!");
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
@@ -77,19 +114,30 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'eslint',
+    'concat',
+    'uglify',
+    'cssmin'
   ]);
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
+      grunt.task.run(['shell']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
-  grunt.registerTask('deploy', [
-    // add your deploy tasks here
+  grunt.registerTask('deploy', function (n) {
+      grunt.task.run(['build', 'upload']);
+  });
+
+  grunt.registerTask('default', [
+    // 'concat',
+    // 'uglify',
+    // 'cssmin',
+    // 'eslint'
+    'watch'
   ]);
-
-
 };
