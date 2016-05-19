@@ -85,14 +85,14 @@ module.exports = function(grunt) {
     },
 
     shell: {
-      // prodServer: {
-      //   command: ['git add .',
-      //             'git commit',
-      //             'git push live master'].join('&&')
-      // }
-      pushServer: {
-        command: 'git push live master'
+      prodServer: {
+        command: ['git add .',
+                  'git commit',
+                  'git push live master'].join('&&')
       }
+      // pushServer: {
+      //   command: 'git push live master'
+      // }
     },
   });
 
@@ -139,10 +139,10 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', [
-    'concat',
-    'uglify',
-    'cssmin',
-    'eslint',
-    'watch'
+    // 'concat',
+    // 'uglify',
+    // 'cssmin',
+    // 'eslint',
+    // 'watch'
   ]);
 };
