@@ -1,15 +1,16 @@
 var path = require('path');
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/aaa');
 var db = mongoose.connection;
 
 
 db.on('error', console.error.bind(console, 'error connecting to db'));
+
 db.once('open', function() {
   console.log('connected to db');
 });
-mongoose.connect('mongodb://localhost/test');
 
-
+module.exports = db;
 
 
 
